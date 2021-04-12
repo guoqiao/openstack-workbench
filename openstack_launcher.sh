@@ -48,19 +48,19 @@ NETWORK=${INPUT:-$DEFAULT}
 CMD+=" --network $NETWORK"
 
 
+openstack hypervisor list
+DEFAULT=""
+read -p "HYPERVISOR: [$DEFAULT] " INPUT
+HYPERVISOR=${INPUT:-$DEFAULT}
+[ -n "$HYPERVISOR" ] && CMD+=" --availability-zone nova:$HYPERVISOR"
+
+
 # optional
 ls ./*userdata*
 DEFAULT=""
 read -p "USERDATA: [$DEFAULT] " INPUT
 USERDATA=${INPUT:-$DEFAULT}
 [ -n "$USERDATA" ] && CMD+=" --user-data $USERDATA"
-
-
-openstack hypervisor list
-DEFAULT=""
-read -p "HYPERVISOR: [$DEFAULT] " INPUT
-HYPERVISOR=${INPUT:-$DEFAULT}
-[ -n "$HYPERVISOR" ] && CMD+=" --availability-zone nova:$HYPERVISOR"
 
 
 DEFAULT="vm0"
