@@ -1,0 +1,20 @@
+#cloud-config
+
+system_info:
+  default_user:
+    name: ubuntu
+    plain_text_passwd: ubuntu
+    lock_passwd: False
+    home: /home/ubuntu
+    shell: /bin/bash
+    groups: [adm, audio, cdrom, dialout, floppy, video, plugdev, dip, netdev]
+
+write_files:
+  - path: /etc/ssh/sshd_config
+    content: |
+      PasswordAuthentication yes
+      ChallengeResponseAuthentication yes
+
+runcmd:
+  - service ssh reload
+  - echo "*** cloud-config/userdata script finished ***"
