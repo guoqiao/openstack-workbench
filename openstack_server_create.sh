@@ -56,6 +56,13 @@ USERDATA=${INPUT:-$DEFAULT}
 [ -n "$USERDATA" ] && CMD+=" --user-data $USERDATA"
 
 
+openstack hypervisor list
+DEFAULT=""
+read -p "HYPERVISOR: [$DEFAULT] " INPUT
+HYPERVISOR=${INPUT:-$DEFAULT}
+[ -n "$HYPERVISOR" ] && CMD+=" --availability-zone nova:$HYPERVISOR"
+
+
 DEFAULT="vm0"
 read -p "SERVER: [$DEFAULT] " INPUT
 SERVER=${INPUT:-$DEFAULT}
