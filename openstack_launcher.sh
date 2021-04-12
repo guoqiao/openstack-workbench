@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ue
 
-CMD="openstack server create"
+CMD="openstack server create --wait"
 
 
 openstack keypair list
