@@ -12,7 +12,9 @@ KEYPAIR=${INPUT:-$DEFAULT}
 CMD+=" --key-name $KEYPAIR"
 
 
-openstack security group list
+# only list current project, otherwise create will fail
+openstack security group list --project $OS_PROJECT_NAME
+echo "use UUID if name duplicated"
 DEFAULT="default"
 read -p "SECURITY_GROUP: [$DEFAULT] " INPUT
 SECURITY_GROUP=${INPUT:-$DEFAULT}
