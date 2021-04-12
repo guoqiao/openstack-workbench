@@ -68,4 +68,14 @@ read -p "SERVER: [$DEFAULT] " INPUT
 SERVER=${INPUT:-$DEFAULT}
 CMD+=" $SERVER"
 
-echo $CMD
+cat << EOF
+
+Final cmd:
+
+    $CMD
+
+EOF
+
+read -p "do you want to execute above cmd? [Y/n] " YES
+YES=${YES:-y}
+[ "${YES,,}" == "y" ] && eval $CMD
