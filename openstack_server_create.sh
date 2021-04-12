@@ -1,47 +1,15 @@
 #!/bin/bash
 set -ue
 
-
-DEFAULT="vm0"
-read -p "SERVER: [$DEFAULT] " INPUT
-SERVER=${INPUT:-$DEFAULT}
+CMD="openstack server create"
 
 
-openstack image list
-
-DEFAULT="cirros-0.5.2-x86_64-disk"
-read -p "IMAGE: [$DEFAULT] " INPUT
-IMAGE=${INPUT:-$DEFAULT}
-
-# TODO: other boot source
-
-# 0 means no volume
-DEFAULT="0"
-read -p "VOLUME_SIZE: [$DEFAULT] " INPUT
-VOLUME_SIZE=${INPUT:-$DEFAULT}
-
-if [ "$VOLUME_SIZE" != "0" ]
-then
-    echo "Create New Volume"
-    # TODO
-else
-    echo "No Volume Needed"
-fi
-
-
-openstack flavor list
-DEFAULT="m1.small"
-read -p "FLAVOR: [$DEFAULT] " INPUT
-FLAVOR=${INPUT:-$DEFAULT}
-
-
-openstack network list
-DEFAULT="private"
-read -p "NETWORK: [$DEFAULT] " INPUT
-NETWORK=${INPUT:-$DEFAULT}
-
-# TODO: select ports
-# Ports provide extra communication channels to your instances. You can select ports instead of networks or a mix of both.
+openstack keypair list
+echo "if no keypair, cancel and run ./openstack_keypair_create.sh to create"
+DEFAULT="${USER}-keypair"
+read -p "KEYPAIR: [$DEFAULT] " INPUT
+KEYPAIR=${INPUT:-$DEFAULT}
+CMD+=" --key-name $KEYPAIR"
 
 
 openstack security group list
@@ -49,20 +17,48 @@ DEFAULT="default"
 read -p "SECURITY_GROUP: [$DEFAULT] " INPUT
 SECURITY_GROUP=${INPUT:-$DEFAULT}
 # TODO: create security group with common allowed ports
+CMD+=" --security-group $SECURITY_GROUP"
 
 
-openstack keypair list
-DEFAULT="${USER}-keypair"
-read -p "KEYPAIR: [$DEFAULT] " INPUT
-KEYPAIR=${INPUT:-$DEFAULT}
+openstack image list
+DEFAULT="cirros-0.5.2-x86_64-disk"
+read -p "IMAGE: [$DEFAULT] " INPUT
+IMAGE=${INPUT:-$DEFAULT}
+CMD+=" --image $IMAGE"
 
 
-USERDATA=""
-if ls ./*user*data*
-then
-    DEFAULT=""
-    read -p "USERDATA: [$DEFAULT] " INPUT
-    USERDATA=${INPUT:-$DEFAULT}
-fi
+# 0 means no volume
+DEFAULT=""
+read -p "if you want to boot from volume, specify the size in GB: [$DEFAULT] " INPUT
+VOLUME_SIZE=${INPUT:-$DEFAULT}
+[ -n "$VOLUME_SIZE" ] && CMD+=" --boot-from-volume $VOLUME_SIZE"
 
-# TODO: server group
+
+openstack flavor list
+DEFAULT="m1.small"
+read -p "FLAVOR: [$DEFAULT] " INPUT
+FLAVOR=${INPUT:-$DEFAULT}
+CMD+=" --flavor $FLAVOR"
+
+
+openstack network list
+DEFAULT="private"
+read -p "NETWORK: [$DEFAULT] " INPUT
+NETWORK=${INPUT:-$DEFAULT}
+CMD+=" --network $NETWORK"
+
+
+# optional
+ls ./*userdata*
+DEFAULT=""
+read -p "USERDATA: [$DEFAULT] " INPUT
+USERDATA=${INPUT:-$DEFAULT}
+[ -n "$USERDATA" ] && CMD+=" --user-data $USERDATA"
+
+
+DEFAULT="vm0"
+read -p "SERVER: [$DEFAULT] " INPUT
+SERVER=${INPUT:-$DEFAULT}
+CMD+=" $SERVER"
+
+echo $CMD
