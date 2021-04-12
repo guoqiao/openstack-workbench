@@ -5,7 +5,7 @@ CMD="openstack server create"
 
 
 openstack keypair list
-echo "if no keypair, cancel and run ./openstack_keypair_create.sh to create"
+echo "if no keypair, cancel this and create"
 DEFAULT="${USER}-keypair"
 read -p "KEYPAIR: [$DEFAULT] " INPUT
 KEYPAIR=${INPUT:-$DEFAULT}
