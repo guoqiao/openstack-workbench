@@ -1,0 +1,74 @@
+# openstack
+alias os=openstack
+alias o7k=openstack
+
+alias prj="openstack project"
+alias prjl="openstack project list"
+alias prjs="openstack project show"
+
+alias cs="openstack compute service"
+alias csl="openstack compute service list"
+
+alias vm="openstack server"
+alias vml="openstack server list --all-projects"
+alias vms="openstack server show"
+alias vmd="openstack server delete"
+
+alias svr="openstack server"
+alias svrl="openstack server list --all-projects"
+alias svrs="openstack server show"
+alias svrd="openstack server delete"
+
+alias vol="openstack volume"
+alias voll="openstack volume list"
+alias vols="openstack volume show"
+alias vold="openstack volume delete"
+
+alias net="openstack network"
+alias netl="openstack network list"
+alias nets="openstack network show"
+alias netd="openstack network delete"
+
+alias sbn="openstack subnet"
+alias sbnl="openstack subnet list"
+alias sbns="openstack subnet show"
+alias sbnd="openstack subnet delete"
+
+alias hpv="openstack hypervisor"
+alias hpvl="openstack hypervisor list"
+alias hpvs="openstack hypervisor show"
+
+alias key="openstack keypair"
+alias keyl="openstack keypair list"
+alias keya="openstack keypair add"
+alias keyd="openstack keypair delete"
+alias keymd5="ssh-keygen -l -E md5 -f"
+
+alias img="openstack image"
+alias imgl="openstack image list --sort updated_at:asc"
+alias imgs="openstack image show"
+
+alias flv="openstack flavor"
+alias flvl="openstack flavor list --public --sort-column RAM"
+alias flvs="openstack flavor show"
+
+alias fip="openstack floating ip"
+alias fipl="openstack floating ip list"
+
+alias avz="openstack availability zone"
+alias avzl="openstack availability zone list"
+alias avzs="openstack availability zone show"
+
+alias scg="openstack security group"
+alias scgl="openstack security group list"
+alias scgs="openstack security group show"
+
+alias lb="openstack loadbalancer"
+alias lbl="openstack loadbalancer list"
+alias lbs="openstack loadbalancer show"
+alias lbd="openstack loadbalancer delete"
+
+alias lbp="openstack loadbalancer pool"
+alias lba="openstack loadbalancer amphora"
+alias lbn="openstack loadbalancer listener"
+alias lbm="openstack loadbalancer member"
