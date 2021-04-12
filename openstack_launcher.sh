@@ -14,12 +14,10 @@ CMD+=" --key-name $KEYPAIR"
 
 # only list current project, otherwise create will fail
 openstack security group list --project $OS_PROJECT_NAME
-echo "use UUID if name duplicated"
 DEFAULT="default"
-read -p "SECURITY_GROUP: [$DEFAULT] " INPUT
+read -p "SECURITY_GROUP (UUID preferred): [$DEFAULT] " INPUT
 SECURITY_GROUP=${INPUT:-$DEFAULT}
-# TODO: create security group with common allowed ports
-CMD+=" --security-group $SECURITY_GROUP"
+[ -n "$SECURITY_GROUP" ] && CMD+=" --security-group $SECURITY_GROUP"
 
 
 openstack image list
